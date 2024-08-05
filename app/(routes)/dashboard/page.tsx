@@ -1,13 +1,11 @@
-import React from "react";
-import { UserButton } from "@clerk/nextjs";
+import Header from "@/components/layout/Header";
+import WorkSpaceList from "@/components/layout/WorkSpaceList";
 
 function dashboard() {
   return (
     <div>
-      dashboard
-      <div>
-        <UserButton />
-      </div>
+      <Header />
+      <WorkSpaceList />
     </div>
   );
 }
