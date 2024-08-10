@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { SmilePlus } from "lucide-react";
 
-const EmojisPicker = () => {
+const EmojisPicker = ({ value }: { value: (v: string) => void }) => {
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [emoji, setEmoji] = useState<string | null>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
@@ -26,6 +26,7 @@ const EmojisPicker = () => {
 
   const handleEmojiClick = (emoji: { emoji: string }) => {
     setEmoji(emoji.emoji);
+    value(emoji.emoji);
     setOpenEmojiPicker(false);
   };
 

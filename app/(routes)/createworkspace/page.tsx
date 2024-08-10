@@ -3,17 +3,58 @@ import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import originalCover from "@/public/images/cover.png";
 import { Button } from "@/components/ui/button";
-import { SmilePlus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import CoverPicker from "@/components/features/coverPicker";
 import EmojisPicker from "@/components/features/emojisPicker";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/firebaseConfig";
+import { useAuth, useUser } from "@clerk/nextjs";
+import { LoaderPinwheel } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { nanoid } from "nanoid";
 
-function createWorkSpace() {
+function createWorkspace() {
   const [coverImage, setCoverImage] = useState<string | StaticImageData>(
     originalCover
   );
+  const [emojiPicked, setEmojiPicked] = useState<string | null>();
 
   const [workSpaceName, setWorkSpaceName] = useState("");
+  const { user } = useUser();
+  const { orgId } = useAuth();
+  const [Loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const OnCreateWorkspace = async () => {
+    setLoading(true);
+    const workspaceId = Date.now();
+    await setDoc(doc(db, "Workspace", workspaceId.toString()), {
+      workspaceName: workSpaceName,
+      emoji: emojiPicked,
+      coverImage: coverImage,
+      userEmail: user?.primaryEmailAddress?.emailAddress,
+      id: workspaceId,
+      orgId: orgId ? orgId : user?.primaryEmailAddress?.emailAddress,
+    });
+
+    const docId = nanoid();
+    await setDoc(doc(db, "Documents", docId.toString()), {
+      workspaceId: workspaceId,
+      emoji: null,
+      coverImage: null,
+      userEmail: user?.primaryEmailAddress?.emailAddress,
+      id: docId,
+      documentOuput: [],
+    });
+
+    await setDoc(doc(db, "documentOuput", docId.toString()), {
+      docId: docId,
+      output: [],
+    });
+
+    setLoading(false);
+    router.replace(`/workspace/${workspaceId}/${docId}`);
+  };
 
   return (
     <div className="p-10 md:px-36 lg:px-64 xl:px-96 py-28">
@@ -44,9 +85,8 @@ function createWorkSpace() {
             needs.
           </h2>
           <div className="mt-8 flex gap-2 items-center">
-            <EmojisPicker>
-              <SmilePlus />
-            </EmojisPicker>
+            <EmojisPicker value={(v: string | null) => setEmojiPicked(v)} />
+
             <Input
               placeholder="Workspace Name"
               onChange={(e) => setWorkSpaceName(e.target.value)}
@@ -54,10 +94,15 @@ function createWorkSpace() {
           </div>
           <div className="mt-7 flex justify-end gap-6">
             <Button
+              onClick={OnCreateWorkspace}
               disabled={!workSpaceName}
               className="bg-purple-600 hover:bg-purple-700 "
             >
-              Create
+              {Loading ? (
+                <LoaderPinwheel className=" animate-spin" />
+              ) : (
+                "Create"
+              )}
             </Button>
             <Button variant="outline">Cancel</Button>
           </div>
@@ -67,4 +112,4 @@ function createWorkSpace() {
   );
 }
 
-export default createWorkSpace;
+export default createWorkspace;
