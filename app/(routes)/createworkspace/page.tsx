@@ -4,8 +4,8 @@ import Image, { StaticImageData } from "next/image";
 import originalCover from "@/public/images/cover.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import CoverPicker from "@/components/features/coverPicker";
-import EmojisPicker from "@/components/features/emojisPicker";
+import CoverPicker from "@/components/features/CoverPicker";
+import EmojisPicker from "@/components/features/EmojisPicker";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
 import { useAuth, useUser } from "@clerk/nextjs";
@@ -33,17 +33,18 @@ function createWorkspace() {
       emoji: emojiPicked,
       coverImage: coverImage,
       userEmail: user?.primaryEmailAddress?.emailAddress,
-      id: workspaceId,
+      workspaceId: workspaceId.toString(),
       orgId: orgId ? orgId : user?.primaryEmailAddress?.emailAddress,
     });
 
     const docId = nanoid();
-    await setDoc(doc(db, "Documents", docId.toString()), {
-      workspaceId: workspaceId,
+    await setDoc(doc(db, "Documents", docId), {
+      workspaceId: workspaceId.toString(),
       emoji: null,
       coverImage: null,
       userEmail: user?.primaryEmailAddress?.emailAddress,
-      id: docId,
+      docId: docId,
+      documentName: "Untitled document",
       documentOuput: [],
     });
 
