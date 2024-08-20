@@ -34,7 +34,9 @@ const DocumentList = ({ documentList, params }: DocumentListProps) => {
           >
             <FileText className="text-purple-500" />
 
-            <h2>{doc.documentName}</h2>
+            <h2>
+              {doc.emoji} {doc.documentName}
+            </h2>
           </div>
           <DocumentOptions docId={doc.docId} />
         </div>

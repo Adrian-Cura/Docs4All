@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import {
   collection,
   doc,
+  getDoc,
   onSnapshot,
   query,
   setDoc,
@@ -31,10 +32,20 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [docsLength, setDocsLength] = useState<number>(1);
+  const [workspaceName, setWorkspaceName] = useState<string>();
 
   useEffect(() => {
-    params && getDocumentList();
-  }, [params]);
+    getDocumentList();
+  }, [params.docId]);
+
+  useEffect(() => {
+    const getWorkspace = async () => {
+      const docRef = doc(db, "Workspace", params?.workspaceId);
+      const docSnap = await getDoc(docRef);
+      setWorkspaceName(docSnap.data()?.workspaceName);
+    };
+    getWorkspace();
+  }, []);
 
   const getDocumentList = () => {
     const q = query(
@@ -57,7 +68,7 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
   };
 
   const CreateNewDocument = async () => {
-    if (documentList.length > 5) {
+    if (documentList.length > 4) {
       alert("You have reached the maximum number of documents.");
       return;
     }
@@ -87,7 +98,7 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
       <hr className=" my-5" />
       <div>
         <div className="flex justify-between items-center">
-          <h2 className="font-medium">Workspace Name</h2>
+          <h2 className="font-medium">{workspaceName}</h2>
           <Button
             onClick={CreateNewDocument}
             className=" bg-purple-600 hover:bg-purple-800"

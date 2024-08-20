@@ -9,14 +9,12 @@ interface ParamsProps {
 const Workspace = ({ params }: { params: ParamsProps }) => {
   return (
     <div>
-      {/* Side nav */}
       <div>
         <SideNav params={params} />
       </div>
 
-      {/*Document */}
       <div className="md:ml-72">
-        <DocumentEditor />
+        <DocumentEditor params={params} />
       </div>
     </div>
   );

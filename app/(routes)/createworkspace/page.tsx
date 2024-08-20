@@ -34,7 +34,7 @@ function createWorkspace() {
       coverImage: coverImage,
       userEmail: user?.primaryEmailAddress?.emailAddress,
       workspaceId: workspaceId.toString(),
-      orgId: orgId ? orgId : user?.primaryEmailAddress?.emailAddress,
+      ...(orgId && { orgId: orgId }),
     });
 
     const docId = nanoid();

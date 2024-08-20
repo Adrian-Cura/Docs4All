@@ -1,4 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-  
+
+.remirror-editor ul,
+.remirror-editor ol {
+  padding-left: 20px;
+  margin-left: 20px;
+}
+
+.remirror-editor ul {
+  list-style-type: disc;
+}
+
+.remirror-editor ol {
+  list-style-type: decimal;
+}
