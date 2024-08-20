@@ -92,8 +92,15 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
   return (
     <div className="h-screen md:w-72 hidden md:block fixed bg-blue-50 p-5 shadow-md">
       <div className="flex justify-between items-center">
-        <Image src={Logo} alt="Logo" width={60} height={60}></Image>
-        <Bell className="h-5 w-5 text-gray-500" />
+        <div
+          onClick={() => router.push("/dashboard")}
+          className="cursor-pointer hover:scale-105"
+        >
+          <Image src={Logo} alt="Logo" width={60} height={60} />
+        </div>
+        <div>
+          <Bell className="h-5 w-5 text-gray-500" />
+        </div>
       </div>
       <hr className=" my-5" />
       <div>

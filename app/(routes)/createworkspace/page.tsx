@@ -30,7 +30,7 @@ function createWorkspace() {
     const workspaceId = Date.now();
     await setDoc(doc(db, "Workspace", workspaceId.toString()), {
       workspaceName: workSpaceName,
-      emoji: emojiPicked,
+      emoji: emojiPicked || null,
       coverImage: coverImage,
       userEmail: user?.primaryEmailAddress?.emailAddress,
       workspaceId: workspaceId.toString(),
@@ -46,11 +46,6 @@ function createWorkspace() {
       docId: docId,
       documentName: "Untitled document",
       documentOuput: [],
-    });
-
-    await setDoc(doc(db, "documentOuput", docId.toString()), {
-      docId: docId,
-      output: [],
     });
 
     setLoading(false);
@@ -104,7 +99,12 @@ function createWorkspace() {
                 "Create"
               )}
             </Button>
-            <Button variant="outline">Cancel</Button>
+            <Button
+              onClick={() => router.replace("/dashboard")}
+              variant="outline"
+            >
+              Cancel
+            </Button>
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
 import { DocumentData } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import WorkspaceOptions from "../features/WorkspaceOptions";
 
 function WorkSpaceList() {
   const router = useRouter();
@@ -70,21 +71,25 @@ function WorkSpaceList() {
           {list &&
             list.map((item, index) => (
               <div
-                onClick={() => router.push(`/workspace/${item.workspaceId}`)}
                 key={index}
-                className="border shadow-xl rounded-xl cursor-pointer transition-all ease-in-out duration-200 hover:scale-105 hover:shadow-2xl"
+                className="border shadow-xl rounded-xl transition-all ease-in-out duration-100  hover:shadow-2xl"
               >
                 <Image
-                  className="h-[150px] object-cover rounded-t-xl"
+                  onClick={() => router.push(`/workspace/${item.workspaceId}`)}
+                  className="h-[150px] object-cover rounded-t-xl cursor-pointer   "
                   alt="Workspace Image"
                   src={item.coverImage}
                   width={400}
                   height={200}
                 />
-                <div className="p-4">
+                <div className="p-4 flex justify-between">
                   <h2>
                     {item.emoji} {item.workspaceName}
                   </h2>
+                  <WorkspaceOptions
+                    workspaceId={item.workspaceId}
+                    getWorkspaceList={getWorkspaceList}
+                  />
                 </div>
               </div>
             ))}

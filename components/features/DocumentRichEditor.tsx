@@ -23,11 +23,11 @@ const DocumentRichEditor = ({ params }: { params: ParamsProps }) => {
 
   useEffect(() => {
     const fetchInitialContent = async () => {
-      const docRef = doc(db, "documentOuput", params?.docId);
+      const docRef = doc(db, "Documents", params?.docId);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setInitialContent(docSnap.data()?.output);
+        setInitialContent(docSnap.data()?.documentOuput);
       } else {
         console.log("No such document!");
       }
@@ -38,10 +38,10 @@ const DocumentRichEditor = ({ params }: { params: ParamsProps }) => {
 
   const handleEditorChange = useCallback(
     async (json: RemirrorJSON) => {
-      const docRef = doc(db, "documentOuput", params?.docId);
+      const docRef = doc(db, "Documents", params?.docId);
 
       try {
-        await setDoc(docRef, { output: json }, { merge: true });
+        await setDoc(docRef, { documentOuput: json }, { merge: true });
         console.log("Document successfully updated!");
       } catch (error) {
         console.error("Error updating document: ", error);
