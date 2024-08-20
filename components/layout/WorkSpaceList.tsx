@@ -1,18 +1,40 @@
 "use client";
-import React, { useState } from "react";
-import { useUser } from "@clerk/nextjs";
+import React, { useEffect, useState } from "react";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import { AlignLeft, LayoutGrid } from "lucide-react";
 import workspaceImage from "@/public/workspace.png";
 import Image from "next/image";
 import Link from "next/link";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/firebaseConfig";
+import { DocumentData } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 function WorkSpaceList() {
+  const router = useRouter();
   const { user } = useUser();
-  const [list, setList] = useState([]);
+  const { orgId } = useAuth();
+  const [list, setList] = useState<DocumentData[]>([]);
+
+  useEffect(() => {
+    user && getWorkspaceList();
+  }, [orgId, user]);
+
+  const getWorkspaceList = async () => {
+    const q = query(
+      collection(db, "Workspace"),
+      where("orgId", "==", orgId ? orgId : null)
+    );
+    const querySnapshot = await getDocs(q);
+    setList([]);
+    querySnapshot.forEach((doc) => {
+      setList((prev) => [...prev, doc.data()]);
+    });
+  };
 
   return (
-    <div className="my-10 p10 md:px-24 lg:px-36 xl:px-52">
+    <div className="m-10 p10 md:px-20 lg:px-32 xl:px-48">
       <div className="flex justify-between">
         <h2 className="font-bold">Hello, {user?.firstName}</h2>
         <Link href={"/createworkspace"}>
@@ -44,7 +66,29 @@ function WorkSpaceList() {
           </Link>
         </div>
       ) : (
-        <div>Workspace List</div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-10">
+          {list &&
+            list.map((item, index) => (
+              <div
+                onClick={() => router.push(`/workspace/${item.workspaceId}`)}
+                key={index}
+                className="border shadow-xl rounded-xl cursor-pointer transition-all ease-in-out duration-200 hover:scale-105 hover:shadow-2xl"
+              >
+                <Image
+                  className="h-[150px] object-cover rounded-t-xl"
+                  alt="Workspace Image"
+                  src={item.coverImage}
+                  width={400}
+                  height={200}
+                />
+                <div className="p-4">
+                  <h2>
+                    {item.emoji} {item.workspaceName}
+                  </h2>
+                </div>
+              </div>
+            ))}
+        </div>
       )}
     </div>
   );

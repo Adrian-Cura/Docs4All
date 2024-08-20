@@ -34,7 +34,7 @@ function createWorkspace() {
       coverImage: coverImage,
       userEmail: user?.primaryEmailAddress?.emailAddress,
       workspaceId: workspaceId.toString(),
-      ...(orgId && { orgId: orgId }),
+      orgId: orgId ? orgId : null,
     });
 
     const docId = nanoid();
@@ -60,7 +60,6 @@ function createWorkspace() {
   return (
     <div className="p-10 md:px-36 lg:px-64 xl:px-96 py-28">
       <div className="shadow-2xl rounded-xl">
-        {/*cover image */}
         <CoverPicker coverUrl={(v) => setCoverImage(v)}>
           <div className="relative group cursor-pointer">
             <h2 className="hidden font-semibol absolute p-4 w-full h-full transition duration-300 ease-in-out group-hover:flex items-center justify-center">
@@ -77,7 +76,7 @@ function createWorkspace() {
             </div>
           </div>
         </CoverPicker>
-        {/*input section */}
+
         <div className="p-12">
           <h2 className="font-medium text-xl">Create a new workspace</h2>
           <h2 className="text-sm mt-2">
