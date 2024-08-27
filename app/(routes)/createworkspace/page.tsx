@@ -21,6 +21,7 @@ function createWorkspace() {
 
   const [workSpaceName, setWorkSpaceName] = useState("");
   const { user } = useUser();
+  const userId = user?.id;
   const { orgId } = useAuth();
   const [Loading, setLoading] = useState(false);
   const router = useRouter();
@@ -33,6 +34,7 @@ function createWorkspace() {
       emoji: emojiPicked || null,
       coverImage: coverImage,
       userEmail: user?.primaryEmailAddress?.emailAddress,
+      userId: user?.id,
       workspaceId: workspaceId.toString(),
       orgId: orgId ? orgId : null,
     });
@@ -43,13 +45,20 @@ function createWorkspace() {
       emoji: null,
       coverImage: null,
       userEmail: user?.primaryEmailAddress?.emailAddress,
+      userId: user?.id,
       docId: docId,
+      orgId: orgId ? orgId : null,
       documentName: "Untitled document",
       documentOuput: [],
     });
 
     setLoading(false);
-    router.replace(`/workspace/${workspaceId}/${docId}`);
+
+    if (orgId) {
+      router.push(`/workspace/org/${orgId}/${workspaceId}/${docId}`);
+    } else {
+      router.push(`/workspace/personal/${userId}/${workspaceId}/${docId}`);
+    }
   };
 
   return (
@@ -83,6 +92,7 @@ function createWorkspace() {
             <EmojisPicker value={(v: string | null) => setEmojiPicked(v)} />
 
             <Input
+              maxLength={16}
               placeholder="Workspace Name"
               onChange={(e) => setWorkSpaceName(e.target.value)}
             />

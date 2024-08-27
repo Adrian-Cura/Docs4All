@@ -12,6 +12,8 @@ import { LoaderPinwheel } from "lucide-react";
 interface ParamsProps {
   docId: string;
   workspaceId: string;
+  userId?: string;
+  orgId?: string;
 }
 
 const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
@@ -30,7 +32,7 @@ const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
 
   useEffect(() => {
     params && getDocumentInfo();
-  }, [params]);
+  }, [params, emoji]);
 
   const getDocumentInfo = async () => {
     const docRef = doc(db, "Documents", params?.docId);
@@ -100,6 +102,7 @@ const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
       </div>
       <div className="mt-10 p-10">
         <input
+          maxLength={22}
           onBlur={(e) => updateDocumentInfo("documentName", e.target.value)}
           className="font-bold text-4xl outline-none "
           type="text"

@@ -3,19 +3,20 @@ import { DocumentData } from "firebase/firestore";
 import { FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import DocumentOptions from "./DocumentOptions";
+import { useAuth, useUser } from "@clerk/nextjs";
+import { ParamsProps } from "@/@types/params";
 
 interface DocumentListProps {
   documentList: DocumentData[];
   params: ParamsProps;
 }
 
-interface ParamsProps {
-  docId: string;
-  workspaceId: string;
-}
-
 const DocumentList = ({ documentList, params }: DocumentListProps) => {
   const router = useRouter();
+
+  const { user } = useUser();
+  const userId = user?.id;
+  const { orgId } = useAuth();
 
   return (
     <div className="h-full w-full">
@@ -28,7 +29,11 @@ const DocumentList = ({ documentList, params }: DocumentListProps) => {
         >
           <div
             onClick={() =>
-              router.replace(`/workspace/${params.workspaceId}/${doc.docId}`)
+              router.push(
+                doc.orgId
+                  ? `/workspace/org/${doc.orgId}/${doc.workspaceId}/${doc.docId}`
+                  : `/workspace/personal/${doc.userId}/${doc.workspaceId}/${doc.docId}`
+              )
             }
             className="flex gap-3 items-center"
           >

@@ -17,7 +17,6 @@ export default function Home() {
         </Button>
       </div>
       <div>
-        {" "}
         <Button>
           <SignUpButton>Sign Up</SignUpButton>
         </Button>

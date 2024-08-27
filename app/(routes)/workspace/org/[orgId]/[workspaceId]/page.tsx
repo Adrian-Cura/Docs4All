@@ -1,12 +1,9 @@
+import { ParamsProps } from "@/@types/params";
+
 import SideNav from "@/components/layout/SideNav";
 import React from "react";
 
-interface paramosProps {
-  docId: string;
-  workspaceId: string;
-}
-
-const page = ({ params }: { params: paramosProps }) => {
+const page = ({ params }: { params: ParamsProps }) => {
   return (
     <div>
       <SideNav params={params} />

@@ -16,19 +16,19 @@ import {
 import { db } from "@/firebaseConfig";
 import { DocumentData } from "firebase/firestore";
 import DocumentList from "../features/DocumentList";
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { nanoid } from "nanoid";
 import { Progress } from "../ui/progress";
 import { useRouter } from "next/navigation";
-
-interface ParamsProps {
-  docId: string;
-  workspaceId: string;
-}
+import { ParamsProps } from "@/@types/params";
+import NotificationBox from "../features/NotificationBox";
+import { ClientSideSuspense } from "@liveblocks/react/suspense";
 
 const SideNav = ({ params }: { params: ParamsProps }) => {
   const [documentList, setDocumentList] = useState<DocumentData[]>([]);
   const { user } = useUser();
+  const userId = user?.id;
+  const { orgId } = useAuth();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [docsLength, setDocsLength] = useState<number>(1);
@@ -45,7 +45,7 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
       setWorkspaceName(docSnap.data()?.workspaceName);
     };
     getWorkspace();
-  }, []);
+  }, [params]);
 
   const getDocumentList = () => {
     const q = query(
@@ -80,11 +80,19 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
       emoji: null,
       coverImage: null,
       userEmail: user?.primaryEmailAddress?.emailAddress,
+      userId: user?.id,
       docId: docId,
+      orgId: orgId ? orgId : null,
       documentName: "Untitled document",
       documentOuput: [],
     });
-    router.replace(`/workspace/${params.workspaceId}/${docId}`);
+    if (orgId) {
+      router.replace(`/workspace/org/${orgId}/${params.workspaceId}/${docId}`);
+    } else {
+      router.replace(
+        `/workspace/personal/${userId}/${params.workspaceId}/${docId}`
+      );
+    }
 
     setLoading(false);
   };
@@ -94,13 +102,25 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
       <div className="flex justify-between items-center">
         <div
           onClick={() => router.push("/dashboard")}
-          className="cursor-pointer hover:scale-105"
+          className="cursor-pointer "
         >
-          <Image src={Logo} alt="Logo" width={60} height={60} />
+          <Image src={Logo} alt="Logo" width={48} height={48} />
         </div>
-        <div>
-          <Bell className="h-5 w-5 text-gray-500" />
-        </div>
+        {params.docId && orgId && (
+          <ClientSideSuspense
+            fallback={
+              <div>
+                <LoaderPinwheel className=" animate-spin" />
+              </div>
+            }
+          >
+            <div>
+              <NotificationBox>
+                <Bell className="h-6 w-6 text-gray-500" />
+              </NotificationBox>
+            </div>
+          </ClientSideSuspense>
+        )}
       </div>
       <hr className=" my-5" />
       <div>
@@ -119,7 +139,7 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
       <div className="absolute bottom-10 w-[85%]">
         {<Progress value={(docsLength / 5) * 100} />}
         <p>
-          <strong>{documentList?.length}</strong> of <strong>5</strong>
+          <strong>{documentList?.length}</strong> out of <strong>5</strong>
         </p>
       </div>
     </div>

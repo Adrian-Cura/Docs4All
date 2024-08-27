@@ -1,10 +1,6 @@
 import DocumentEditor from "@/components/layout/DocumentEditor";
 import SideNav from "@/components/layout/SideNav";
-
-interface ParamsProps {
-  docId: string;
-  workspaceId: string;
-}
+import { ParamsProps } from "@/@types/params";
 
 const Workspace = ({ params }: { params: ParamsProps }) => {
   return (

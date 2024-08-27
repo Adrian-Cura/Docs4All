@@ -23,10 +23,18 @@ function WorkSpaceList() {
   }, [orgId, user]);
 
   const getWorkspaceList = async () => {
-    const q = query(
-      collection(db, "Workspace"),
-      where("orgId", "==", orgId ? orgId : null)
-    );
+    let q;
+
+    if (orgId) {
+      q = query(collection(db, "Workspace"), where("orgId", "==", orgId));
+    } else {
+      q = query(
+        collection(db, "Workspace"),
+        where("userEmail", "==", user?.primaryEmailAddress?.emailAddress),
+        where("orgId", "==", null)
+      );
+    }
+
     const querySnapshot = await getDocs(q);
     setList([]);
     querySnapshot.forEach((doc) => {
@@ -75,7 +83,13 @@ function WorkSpaceList() {
                 className="border shadow-xl rounded-xl transition-all ease-in-out duration-100  hover:shadow-2xl"
               >
                 <Image
-                  onClick={() => router.push(`/workspace/${item.workspaceId}`)}
+                  onClick={() =>
+                    router.push(
+                      item.orgId
+                        ? `/workspace/org/${item.orgId}/${item.workspaceId}`
+                        : `/workspace/personal/${item.userId}/${item.workspaceId}`
+                    )
+                  }
                   className="h-[150px] object-cover rounded-t-xl cursor-pointer   "
                   alt="Workspace Image"
                   src={item.coverImage}

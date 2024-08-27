@@ -9,6 +9,8 @@ import { RemirrorJSON } from "remirror";
 interface ParamsProps {
   docId: string;
   workspaceId: string;
+  userId?: string;
+  orgId?: string;
 }
 
 interface MyEditorProps {
