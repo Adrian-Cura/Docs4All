@@ -1,6 +1,5 @@
 "use client";
-import Image from "next/image";
-import logo from "@/public/logo.png";
+
 import {
   OrganizationSwitcher,
   UserButton,
@@ -11,6 +10,8 @@ import {
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
 import { useEffect } from "react";
+import Link from "next/link";
+import { PenLine } from "lucide-react";
 
 interface OrganizationProps {
   id: string;
@@ -94,11 +95,11 @@ function Header() {
   };
 
   return (
-    <div className=" flex justify-between shadow-sm">
-      <div className="flex">
-        <Image width={60} height={60} src={logo} alt="logo" />
-        <h2 className="self-center font-bold">Docs4All</h2>
-      </div>
+    <div className=" flex justify-between shadow-sm px-2 sm:px-4 md:px-6 lg:px-8">
+      <Link className="flex items-center justify-center" href="#">
+        <PenLine className="h-6 w-6 text-primary" />
+        <span className="sr-only">Docs4All</span>
+      </Link>
       <button disabled={true}>
         <OrganizationSwitcher
           afterCreateOrganizationUrl={"/dashboard"}

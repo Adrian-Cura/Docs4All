@@ -5,6 +5,8 @@ import { OnChangeJSON } from "@remirror/react";
 import { WysiwygEditor } from "@remirror/react-editors/wysiwyg";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { RemirrorJSON } from "remirror";
+import Draggable from "./Draggable";
+import AIPrompts from "./AIPrompts";
 
 interface ParamsProps {
   docId: string;
@@ -23,6 +25,12 @@ const DocumentRichEditor = ({ params }: { params: ParamsProps }) => {
     RemirrorJSON | undefined
   >(undefined);
 
+  // Estado para el contenido generado por la IA
+  const [aiGeneratedContent, setAiGeneratedContent] = useState<
+    RemirrorJSON | undefined
+  >(undefined);
+
+  const [dialogOpen, setDialogOpen] = useState(false);
   useEffect(() => {
     const fetchInitialContent = async () => {
       const docRef = doc(db, "Documents", params?.docId);
@@ -40,6 +48,7 @@ const DocumentRichEditor = ({ params }: { params: ParamsProps }) => {
 
   const handleEditorChange = useCallback(
     async (json: RemirrorJSON) => {
+      console.log(json);
       const docRef = doc(db, "Documents", params?.docId);
 
       try {
@@ -66,7 +75,22 @@ const DocumentRichEditor = ({ params }: { params: ParamsProps }) => {
   };
 
   return (
-    <MyEditor onChange={handleEditorChange} initialContent={initialContent} />
+    <div>
+      <div>
+        <MyEditor
+          onChange={handleEditorChange}
+          initialContent={aiGeneratedContent || initialContent}
+        />
+      </div>
+
+      <Draggable isDraggable={true} dialogOpen={dialogOpen}>
+        <AIPrompts
+          setGenerateAIOutput={(outputAi: RemirrorJSON) =>
+            setAiGeneratedContent(outputAi)
+          }
+        />
+      </Draggable>
+    </div>
   );
 };
 

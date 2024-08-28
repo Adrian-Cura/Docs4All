@@ -1,6 +1,6 @@
 "use client";
-import Logo from "@/public/logo.png";
-import { Bell, LoaderPinwheel } from "lucide-react";
+
+import { Bell, LoaderPinwheel, PenLine } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import { ParamsProps } from "@/@types/params";
 import NotificationBox from "../features/NotificationBox";
 import { ClientSideSuspense } from "@liveblocks/react/suspense";
+import Link from "next/link";
 
 const SideNav = ({ params }: { params: ParamsProps }) => {
   const [documentList, setDocumentList] = useState<DocumentData[]>([]);
@@ -98,14 +99,15 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
   };
 
   return (
-    <div className="h-screen md:w-72 hidden md:block fixed bg-blue-50 p-5 shadow-md">
+    <div className="h-screen md:w-72 hidden md:block fixed bg-blue-50 p-5 shadow-md ">
       <div className="flex justify-between items-center">
-        <div
-          onClick={() => router.push("/dashboard")}
-          className="cursor-pointer "
+        <Link
+          className="flex items-center justify-center ml-3"
+          href="/dashboard"
         >
-          <Image src={Logo} alt="Logo" width={48} height={48} />
-        </div>
+          <PenLine className="h-6 w-6 text-primary" />
+          <span className="sr-only">Docs4All</span>
+        </Link>
         {params.docId && orgId && (
           <ClientSideSuspense
             fallback={

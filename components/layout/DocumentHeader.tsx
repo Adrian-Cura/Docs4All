@@ -1,12 +1,7 @@
 import { ParamsProps } from "@/@types/params";
 import Image from "next/image";
 
-import {
-  OrganizationSwitcher,
-  useOrganizationList,
-  useAuth,
-  UserButton,
-} from "@clerk/nextjs";
+import { useOrganizationList, useAuth, UserButton } from "@clerk/nextjs";
 
 const DocumentHeader = ({ params }: { params: ParamsProps }) => {
   const { userMemberships } = useOrganizationList({
