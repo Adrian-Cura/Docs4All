@@ -23,7 +23,7 @@ const DocumentEditor = ({ params }: { params: ParamsProps }) => {
         <DocumentRichEditor params={params} />
       </section>
       {params.docId && orgId && (
-        <div className="fixed right-10 bottom-10 ">
+        <div className="fixed z-10 bottom-[40px] right-[60px]  lg:right-10 lg:bottom-10  ">
           <Button onClick={() => setOpenComment(!openComment)}>
             {openComment ? (
               <X />

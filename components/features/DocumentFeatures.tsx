@@ -8,13 +8,8 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
 import { DocumentData } from "firebase/firestore";
 import { LoaderPinwheel } from "lucide-react";
-
-interface ParamsProps {
-  docId: string;
-  workspaceId: string;
-  userId?: string;
-  orgId?: string;
-}
+import { ParamsProps } from "@/@types/params";
+import { Input } from "../ui/input";
 
 const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
   const [coverImage, setCoverImage] = useState<string | StaticImageData>(
@@ -55,7 +50,7 @@ const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
   };
 
   return (
-    <div>
+    <div className="px-2">
       <CoverPicker
         coverUrl={(imageUrl) => {
           setCoverImage(imageUrl);
@@ -100,11 +95,11 @@ const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
           />
         )}
       </div>
-      <div className="mt-10 p-10">
-        <input
+      <div className="mt-10 p-10 ">
+        <Input
           maxLength={22}
           onBlur={(e) => updateDocumentInfo("documentName", e.target.value)}
-          className="font-bold text-4xl outline-none "
+          className="font-bold text-lg md:text-2xl lg:text-3xl xl:text-4xl outline-none "
           type="text"
           placeholder="Untitled Document"
           defaultValue={documentInfo?.documentName}

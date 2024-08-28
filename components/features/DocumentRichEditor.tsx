@@ -75,7 +75,7 @@ const DocumentRichEditor = ({ params }: { params: ParamsProps }) => {
   };
 
   return (
-    <div>
+    <div className="">
       <div>
         <MyEditor
           onChange={handleEditorChange}

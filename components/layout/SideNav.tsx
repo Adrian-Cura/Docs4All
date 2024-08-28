@@ -25,7 +25,12 @@ import NotificationBox from "../features/NotificationBox";
 import { ClientSideSuspense } from "@liveblocks/react/suspense";
 import Link from "next/link";
 
-const SideNav = ({ params }: { params: ParamsProps }) => {
+interface SideProps {
+  display?: boolean;
+  params: ParamsProps;
+}
+
+const SideNav = ({ params, display }: SideProps) => {
   const [documentList, setDocumentList] = useState<DocumentData[]>([]);
   const { user } = useUser();
   const userId = user?.id;
@@ -98,7 +103,11 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
   };
 
   return (
-    <div className="h-screen md:w-72 hidden md:block fixed bg-blue-50 p-5 shadow-md ">
+    <div
+      className={` ${
+        display ? "block" : "hidden"
+      } md:block   h-screen md:w-72 fixed bg-blue-50 p-5 shadow-md `}
+    >
       <div className="flex justify-between items-center">
         <Link
           className="flex items-center justify-center ml-3"

@@ -1,7 +1,11 @@
-import { ParamsProps } from "@/@types/params";
+"use client";
 import Image from "next/image";
 
 import { useOrganizationList, useAuth, UserButton } from "@clerk/nextjs";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import SideNav from "./SideNav";
+import { ParamsProps } from "@/@types/params";
+import { useState } from "react";
 
 const DocumentHeader = ({ params }: { params: ParamsProps }) => {
   const { userMemberships } = useOrganizationList({
@@ -18,12 +22,25 @@ const DocumentHeader = ({ params }: { params: ParamsProps }) => {
     }
   });
 
+  const [display, setDisplay] = useState(true);
+
   return (
     <div
       className={`flex ${
         orgId ? "justify-between" : "justify-center"
       } items-center p-3 px-7`}
     >
+      <div className=" md:hidden">
+        <Sheet>
+          <SheetTrigger className="text-white rounded-md p-1 transition-all duration-100 ease-in-out bg-black hover:text-purple-500">
+            Menu
+          </SheetTrigger>
+          <SheetContent className="p-0 bg-purple-800" side="left">
+            <SideNav display={display} params={params} />
+          </SheetContent>
+        </Sheet>
+      </div>
+
       {orgId && (
         <div className="w-full flex gap-2 justify-center items-center">
           {orgPicture && (
