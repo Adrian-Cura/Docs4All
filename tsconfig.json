@@ -22,12 +22,12 @@
     }
   },
   "include": [
+    "app/**/*",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "pages/api/workspace/[workspaceId].js",
-    "pages/api/workspace/[workspaceId].js",
+
     "app/api/liveblocks-auth/route.js"
   ],
   "exclude": ["node_modules"]
