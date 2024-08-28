@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 interface DraggableProps {
   children: React.ReactNode;
@@ -25,17 +25,20 @@ const Draggable: React.FC<DraggableProps> = ({
     setIsDragging(true);
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!dialogOpen && isDraggable) {
-      setStartPosition(true);
-      if (isDragging) {
-        setPosition({
-          x: e.clientX - offset.x,
-          y: e.clientY - offset.y,
-        });
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!dialogOpen && isDraggable) {
+        setStartPosition(true);
+        if (isDragging) {
+          setPosition({
+            x: e.clientX - offset.x,
+            y: e.clientY - offset.y,
+          });
+        }
       }
-    }
-  };
+    },
+    [dialogOpen, isDraggable, isDragging, offset]
+  );
 
   const handleMouseUp = () => {
     setIsDragging(false);
@@ -54,7 +57,7 @@ const Draggable: React.FC<DraggableProps> = ({
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isDragging, offset, dialogOpen, isDraggable]);
+  }, [isDragging, offset, dialogOpen, isDraggable, handleMouseMove]);
 
   return (
     <div

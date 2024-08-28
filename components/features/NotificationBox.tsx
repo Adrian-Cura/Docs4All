@@ -14,11 +14,11 @@ import { InboxNotification, InboxNotificationList } from "@liveblocks/react-ui";
 function NotificationBox({ children }: { children: React.ReactNode }) {
   const { inboxNotifications } = useInboxNotifications();
   const updateRoomNotificationSettings = useUpdateRoomNotificationSettings();
-  const { count, error, isLoading } = useUnreadInboxNotificationsCount();
+  const { count } = useUnreadInboxNotificationsCount();
   useEffect(() => {
     updateRoomNotificationSettings({ threads: "all" });
     console.log(count);
-  }, [count]);
+  }, [count, updateRoomNotificationSettings]);
 
   return (
     <Popover>
@@ -38,8 +38,9 @@ function NotificationBox({ children }: { children: React.ReactNode }) {
       </PopoverTrigger>
       <PopoverContent className={"w-[500px]"}>
         <InboxNotificationList>
-          {inboxNotifications.map((inboxNotification) => (
+          {inboxNotifications.map((inboxNotification, index) => (
             <InboxNotification
+              key={index}
               showActions={false}
               inboxNotification={inboxNotification}
               kinds={{

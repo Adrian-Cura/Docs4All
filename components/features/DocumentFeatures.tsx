@@ -1,9 +1,9 @@
 "use client";
-import CoverPicker from "./CoverPicker";
+import { CoverPicker } from "./CoverPicker";
 import Image, { StaticImageData } from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import originalCover from "@/public/images/cover.png";
-import EmojisPicker from "./EmojisPicker";
+import { EmojisPicker } from "./EmojisPicker";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
 import { DocumentData } from "firebase/firestore";
@@ -30,11 +30,7 @@ const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
 
   const [imageLoading, setImageLoading] = useState(true);
 
-  useEffect(() => {
-    params && getDocumentInfo();
-  }, [params, emoji]);
-
-  const getDocumentInfo = async () => {
+  const getDocumentInfo = useCallback(async () => {
     const docRef = doc(db, "Documents", params?.docId);
     const docSnap = await getDoc(docRef);
 
@@ -45,7 +41,11 @@ const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
       docSnap.data()?.coverImage && setCoverImage(docSnap.data()?.coverImage);
       setImageLoading(false);
     }
-  };
+  }, [params?.docId]);
+
+  useEffect(() => {
+    params && getDocumentInfo();
+  }, [params, emoji, getDocumentInfo]);
 
   const updateDocumentInfo = async (key: string, value: string) => {
     const docRef = doc(db, "Documents", params?.docId);

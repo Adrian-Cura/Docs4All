@@ -13,7 +13,7 @@ import { LoaderPinwheel } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { nanoid } from "nanoid";
 
-function createWorkspace() {
+function CreateWorkspace() {
   const [coverImage, setCoverImage] = useState<string | StaticImageData>(
     originalCover
   );
@@ -122,4 +122,4 @@ function createWorkspace() {
   );
 }
 
-export default createWorkspace;
+export default CreateWorkspace;

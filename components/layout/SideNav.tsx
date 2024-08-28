@@ -3,7 +3,7 @@
 import { Bell, LoaderPinwheel, PenLine } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   collection,
   doc,
@@ -35,20 +35,7 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
   const [docsLength, setDocsLength] = useState<number>(1);
   const [workspaceName, setWorkspaceName] = useState<string>();
 
-  useEffect(() => {
-    getDocumentList();
-  }, [params.docId]);
-
-  useEffect(() => {
-    const getWorkspace = async () => {
-      const docRef = doc(db, "Workspace", params?.workspaceId);
-      const docSnap = await getDoc(docRef);
-      setWorkspaceName(docSnap.data()?.workspaceName);
-    };
-    getWorkspace();
-  }, [params]);
-
-  const getDocumentList = () => {
+  const getDocumentList = useCallback(() => {
     const q = query(
       collection(db, "Documents"),
       where("workspaceId", "==", params?.workspaceId)
@@ -66,7 +53,19 @@ const SideNav = ({ params }: { params: ParamsProps }) => {
     });
 
     return () => unsubscribe();
-  };
+  }, [params]);
+  useEffect(() => {
+    getDocumentList();
+  }, [params, getDocumentList]);
+
+  useEffect(() => {
+    const getWorkspace = async () => {
+      const docRef = doc(db, "Workspace", params?.workspaceId);
+      const docSnap = await getDoc(docRef);
+      setWorkspaceName(docSnap.data()?.workspaceName);
+    };
+    getWorkspace();
+  }, [params, getDocumentList]);
 
   const CreateNewDocument = async () => {
     if (documentList.length > 4) {

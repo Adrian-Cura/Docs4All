@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import { AlignLeft, LayoutGrid } from "lucide-react";
@@ -18,11 +18,7 @@ function WorkSpaceList() {
   const { orgId } = useAuth();
   const [list, setList] = useState<DocumentData[]>([]);
 
-  useEffect(() => {
-    user && getWorkspaceList();
-  }, [orgId, user]);
-
-  const getWorkspaceList = async () => {
+  const getWorkspaceList = useCallback(async () => {
     let q;
 
     if (orgId) {
@@ -40,7 +36,11 @@ function WorkSpaceList() {
     querySnapshot.forEach((doc) => {
       setList((prev) => [...prev, doc.data()]);
     });
-  };
+  }, [orgId, user]);
+
+  useEffect(() => {
+    user && getWorkspaceList();
+  }, [orgId, user, getWorkspaceList]);
 
   return (
     <div className="m-10 p10 md:px-20 lg:px-32 xl:px-48">

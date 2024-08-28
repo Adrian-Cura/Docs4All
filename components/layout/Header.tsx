@@ -9,7 +9,7 @@ import {
 
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import Link from "next/link";
 import { PenLine } from "lucide-react";
 
@@ -24,11 +24,7 @@ function Header() {
     userMemberships: true,
   });
 
-  useEffect(() => {
-    saveUserData();
-  }, [user, userMemberships]);
-
-  const saveUserData = async () => {
+  const saveUserData = useCallback(async () => {
     const userId = user?.id;
     if (!userId) return;
 
@@ -92,7 +88,11 @@ function Header() {
         { merge: true }
       );
     }
-  };
+  }, [user, userMemberships]);
+
+  useEffect(() => {
+    saveUserData();
+  }, [user, userMemberships, saveUserData]);
 
   return (
     <div className=" flex justify-between shadow-sm px-2 sm:px-4 md:px-6 lg:px-8">
