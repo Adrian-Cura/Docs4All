@@ -13,7 +13,7 @@ import images from "@/lib/images";
 import { Button } from "../ui/button";
 import { useState } from "react";
 
-const CoverPicker = ({
+export const CoverPicker = ({
   children,
   coverUrl,
 }: {
@@ -71,5 +71,3 @@ const CoverPicker = ({
     </Dialog>
   );
 };
-
-export default CoverPicker;

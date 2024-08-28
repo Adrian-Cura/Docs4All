@@ -10,7 +10,7 @@ interface emojiProps {
   getEmoji?: (getEmoji: string) => void;
 }
 
-const EmojisPicker = ({
+export const EmojisPicker = ({
   value,
   forDocument,
   emojiDatabase,
@@ -80,5 +80,3 @@ const EmojisPicker = ({
     </div>
   );
 };
-
-export default EmojisPicker;
