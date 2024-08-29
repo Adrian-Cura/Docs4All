@@ -25,21 +25,19 @@ const CoverPicker = ({
 
   return (
     <Dialog>
-      <DialogTrigger className="h-full w-full scroll-auto">
-        {children}
-      </DialogTrigger>
+      <DialogTrigger className="h-full w-full">{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Update cover</DialogTitle>
-          <DialogDescription className="overflow-scroll">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-3 gap-3 overflow-scroll ">
+          <DialogDescription>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-3 gap-3 ">
               {images.map((cover, index) => (
                 <div
                   key={index}
                   onClick={() => setSelectedCover(cover?.imageUrl)}
                   className={` ${
                     selectedCover === cover.imageUrl &&
-                    "  border-2 border-double rounded-md border-purple-600 scale-110 brightness-110 saturate-150 shadow-lg rotate-6  transition duration-200 ease-in-out"
+                    " border-2 border-double rounded-md border-purple-600 scale-110 brightness-110 saturate-150 shadow-lg rotate-6  transition duration-200 ease-in-out"
                   }`}
                 >
                   <Image
@@ -47,7 +45,7 @@ const CoverPicker = ({
                     src={cover?.imageUrl}
                     width={200}
                     height={200}
-                    className=" rounded-md"
+                    className=" rounded-md h-[90px] md:h-auto  "
                     priority={true}
                   />
                 </div>

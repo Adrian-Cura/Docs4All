@@ -1,9 +1,13 @@
+"use client";
 import { Button } from "@/components/ui/button";
 
 import { PenLine, Users, Zap } from "lucide-react";
 import Link from "next/link";
+import { SignOutButton, useUser } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 
 const Hero = () => {
+  const { isSignedIn } = useAuth();
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-background to-secondary">
       <header className="px-4 lg:px-6 h-14 flex items-center">
@@ -11,17 +15,31 @@ const Hero = () => {
           <PenLine className="h-6 w-6 text-primary" />
           <span className="sr-only">Docs4All</span>
         </Link>
+
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link href="/sign-in">
-            <Button variant="ghost" className="text-base hover:text-purple-500">
-              Sign In
-            </Button>
-          </Link>
-          <Link href="/sign-up">
-            <Button className="text-base bg-black hover:text-purple-500">
-              Sign Up
-            </Button>
-          </Link>
+          {!isSignedIn ? (
+            <div>
+              <Link href="/sign-in">
+                <Button
+                  variant="ghost"
+                  className="text-base hover:text-purple-500"
+                >
+                  Sign In
+                </Button>
+              </Link>
+              <Link href="/sign-up">
+                <Button className="text-base bg-black hover:text-purple-500">
+                  Sign Up
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <div>
+              <SignOutButton>
+                <Button className=" hover:text-purple-500">Sign out</Button>
+              </SignOutButton>
+            </div>
+          )}
         </nav>
       </header>
       <main className="flex-1">
