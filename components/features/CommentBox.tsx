@@ -7,7 +7,7 @@ const CommentBox = () => {
   return (
     <div
       className="w-[300px] h-[350px] shadow-lg 
-    rounded-lg overflow-auto z-30 bg-white "
+    rounded-lg overflow-auto z-10 bg-white "
     >
       {threads.map((thread) => (
         <Thread key={thread.id} thread={thread} />

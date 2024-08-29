@@ -36,7 +36,7 @@ function NotificationBox({ children }: { children: React.ReactNode }) {
           )}
         </div>
       </PopoverTrigger>
-      <PopoverContent className={"w-[500px]"}>
+      <PopoverContent className={count ? "w-[500px]" : "w-[80px]"}>
         <InboxNotificationList>
           {inboxNotifications.map((inboxNotification, index) => (
             <InboxNotification
