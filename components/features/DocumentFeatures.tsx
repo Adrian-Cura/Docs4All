@@ -62,7 +62,7 @@ const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
           <h2 className="hidden font-semibol absolute p-4 w-full h-full transition duration-300 ease-in-out group-hover:flex items-center justify-center">
             Change Cover
           </h2>
-          <div className=" transition duration-300 ease-in-out   group-hover:opacity-50">
+          <div className=" transition duration-300 ease-in-out   group-hover:opacity-50 overflow-hidden">
             {imageLoading ? (
               <div className="w-full h-[150px]  animate-pulse rounded-md flex justify-center items-center  bg-gradient-to-r from-zinc-200 to-gray-400">
                 <LoaderPinwheel
@@ -73,7 +73,7 @@ const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
               </div>
             ) : (
               <Image
-                className="w-full h-[150px] rounded-t-xl "
+                className="w-full h-[150px] rounded-t-xl object-cover "
                 src={coverImage}
                 alt="Cover picture"
                 width={800}
