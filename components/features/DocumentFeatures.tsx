@@ -1,9 +1,10 @@
 "use client";
-import { CoverPicker } from "./CoverPicker";
+import EmojisPicker from "@/app/(routes)/_components/EmojisPicker";
+import CoverPicker from "@/app/(routes)/_components/CoverPicker";
 import Image, { StaticImageData } from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import originalCover from "@/public/images/cover.png";
-import { EmojisPicker } from "./EmojisPicker";
+
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
 import { DocumentData } from "firebase/firestore";

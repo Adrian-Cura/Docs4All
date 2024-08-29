@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import { SmilePlus } from "lucide-react";
 
 const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
@@ -13,7 +13,7 @@ interface emojiProps {
   getEmoji?: (getEmoji: string) => void;
 }
 
-export const EmojisPicker = ({
+const EmojisPicker = ({
   value,
   forDocument,
   emojiDatabase,
@@ -83,3 +83,5 @@ export const EmojisPicker = ({
     </div>
   );
 };
+
+export default EmojisPicker;

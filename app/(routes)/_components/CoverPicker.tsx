@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import images from "@/lib/images";
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import { useState } from "react";
 
-export const CoverPicker = ({
+const CoverPicker = ({
   children,
   coverUrl,
 }: {
@@ -73,3 +73,5 @@ export const CoverPicker = ({
     </Dialog>
   );
 };
+
+export default CoverPicker;

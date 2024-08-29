@@ -4,14 +4,14 @@ import Image, { StaticImageData } from "next/image";
 import originalCover from "@/public/images/cover.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CoverPicker } from "@/components/features/CoverPicker";
-import { EmojisPicker } from "@/components/features/EmojisPicker";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { LoaderPinwheel } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { nanoid } from "nanoid";
+import EmojisPicker from "@/app/(routes)/_components/EmojisPicker";
+import CoverPicker from "@/app/(routes)/_components/CoverPicker";
 
 function CreateWorkspace() {
   const [coverImage, setCoverImage] = useState<string | StaticImageData>(
