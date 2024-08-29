@@ -62,6 +62,7 @@ function WorkSpaceList() {
       {list?.length === 0 ? (
         <div className="flex flex-col justify-center items-center my-10">
           <Image
+            priority={true}
             src={workspaceImage}
             alt="Workspace image"
             width={200}
@@ -80,7 +81,7 @@ function WorkSpaceList() {
             list.map((item, index) => (
               <div
                 key={index}
-                className="border shadow-xl rounded-xl transition-all ease-in-out duration-100  hover:shadow-2xl"
+                className="border cursor-pointer shadow-xl rounded-xl transition-all ease-in-out duration-100  hover:shadow-2xl"
               >
                 <Image
                   onClick={() =>
@@ -90,11 +91,12 @@ function WorkSpaceList() {
                         : `/workspace/personal/${item.userId}/${item.workspaceId}`
                     )
                   }
-                  className="h-[150px] object-cover rounded-t-xl cursor-pointer   "
+                  className="rounded-t-xl"
                   alt="Workspace Image"
                   src={item.coverImage}
                   width={400}
                   height={200}
+                  priority={true}
                 />
                 <div className="p-4 flex justify-between">
                   <h2>

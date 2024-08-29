@@ -72,11 +72,12 @@ const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
               </div>
             ) : (
               <Image
-                className="w-full h-[150px] rounded-t-xl object-cover"
+                className="w-full h-[150px] rounded-t-xl "
                 src={coverImage}
                 alt="Cover picture"
                 width={800}
                 height={800}
+                priority={true}
               />
             )}
           </div>
@@ -99,7 +100,7 @@ const DocumentFeatures = ({ params }: { params: ParamsProps }) => {
         <Input
           maxLength={22}
           onBlur={(e) => updateDocumentInfo("documentName", e.target.value)}
-          className="font-bold text-lg md:text-2xl lg:text-3xl xl:text-4xl outline-none "
+          className="font-bold text-lg md:text-2xl lg:text-3xl xl:text-4xl outline-none border-none"
           type="text"
           placeholder="Untitled Document"
           defaultValue={documentInfo?.documentName}

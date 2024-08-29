@@ -45,7 +45,8 @@ export const CoverPicker = ({
                     src={cover?.imageUrl}
                     width={200}
                     height={200}
-                    className=" rounded-md object-cover"
+                    className=" rounded-md"
+                    priority={true}
                   />
                 </div>
               ))}

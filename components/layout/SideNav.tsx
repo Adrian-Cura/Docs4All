@@ -27,10 +27,11 @@ import Link from "next/link";
 
 interface SideProps {
   display?: boolean;
+  fullDisplay?: boolean;
   params: ParamsProps;
 }
 
-const SideNav = ({ params, display }: SideProps) => {
+const SideNav = ({ params, display, fullDisplay }: SideProps) => {
   const [documentList, setDocumentList] = useState<DocumentData[]>([]);
   const { user } = useUser();
   const userId = user?.id;
@@ -106,7 +107,9 @@ const SideNav = ({ params, display }: SideProps) => {
     <div
       className={` ${
         display ? "block" : "hidden"
-      } md:block   h-screen md:w-72 fixed bg-blue-50 p-5 shadow-md `}
+      } md:block   h-screen md:w-72 fixed bg-blue-50 p-5 shadow-md 
+        
+       `}
     >
       <div className="flex justify-between items-center">
         <Link

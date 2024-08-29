@@ -32,10 +32,10 @@ const DocumentHeader = ({ params }: { params: ParamsProps }) => {
     >
       <div className=" md:hidden">
         <Sheet>
-          <SheetTrigger className="text-white rounded-md p-1 transition-all duration-100 ease-in-out bg-black hover:text-purple-500">
+          <SheetTrigger className=" rounded-md p-1 transition-all duration-200 ease-in-out  hover:text-purple-500 hover:bg-slate-200 border-2 font-medium">
             Menu
           </SheetTrigger>
-          <SheetContent className="p-0 bg-purple-800" side="left">
+          <SheetContent className="p-0 bg-slate-200" side="left">
             <SideNav display={display} params={params} />
           </SheetContent>
         </Sheet>

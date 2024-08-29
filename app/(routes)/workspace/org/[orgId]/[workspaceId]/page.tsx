@@ -1,12 +1,17 @@
+"use client";
 import { ParamsProps } from "@/@types/params";
 
 import SideNav from "@/components/layout/SideNav";
-import React from "react";
+import WorkspaceHero from "@/components/layout/WorkspaceHero";
+import React, { useState } from "react";
 
 const page = ({ params }: { params: ParamsProps }) => {
+  const [display, setDisplay] = useState(true);
+
   return (
     <div>
-      <SideNav params={params} />
+      <SideNav display={display} params={params} />
+      <WorkspaceHero display={display} />
     </div>
   );
 };

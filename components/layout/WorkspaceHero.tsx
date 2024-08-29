@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,15 +5,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { PlusCircle, FileText, Sparkles, Zap, Users } from "lucide-react";
+import { FileText, Sparkles, Users } from "lucide-react";
 
-const WorkspaceHero = () => {
+const WorkspaceHero = ({ display }: { display?: boolean }) => {
   return (
-    <div className="min-h-screen w-full p-8   ">
+    <div
+      className={`min-h-screen w-full p-8 ${
+        display ? "hidden md:block" : ""
+      }  `}
+    >
       <div className="max-w-6xl   mx-auto pl-72">
         <header className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-4">Welcome to Your Workspace</h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl ">
             Your intelligent workspace for creation and collaboration
           </p>
         </header>
@@ -24,7 +26,7 @@ const WorkspaceHero = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5 text-primary" />
+                <FileText className="h-5 w-5 " />
                 Create Documents
               </CardTitle>
             </CardHeader>
@@ -39,7 +41,7 @@ const WorkspaceHero = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-primary" />
+                <Sparkles className="h-5 w-5 " />
                 Utilize AI
               </CardTitle>
             </CardHeader>
@@ -54,7 +56,7 @@ const WorkspaceHero = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" />
+                <Users className="h-5 w-5 " />
                 Collaborate in Real-Time
               </CardTitle>
             </CardHeader>
@@ -69,7 +71,7 @@ const WorkspaceHero = () => {
 
         <section className="text-center">
           <h2 className="text-2xl font-semibold mb-4">Ready to get started?</h2>
-          <p className="text-muted-foreground mb-6">
+          <p className=" mb-6">
             Create your document and discover how Docs4All can transform your
             way of working.
           </p>
