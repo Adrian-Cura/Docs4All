@@ -1,3 +1,4 @@
+"use client";
 import { ParamsProps } from "@/@types/params";
 import { Room } from "@/app/Room";
 import DocumentEditor from "@/components/layout/DocumentEditor";

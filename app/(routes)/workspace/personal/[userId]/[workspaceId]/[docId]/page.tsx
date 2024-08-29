@@ -1,3 +1,4 @@
+"use client";
 import DocumentEditor from "@/components/layout/DocumentEditor";
 import SideNav from "@/components/layout/SideNav";
 import { ParamsProps } from "@/@types/params";
