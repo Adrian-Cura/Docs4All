@@ -27,7 +27,7 @@ const DocumentHeader = ({ params }: { params: ParamsProps }) => {
   return (
     <div
       className={`flex ${
-        orgId ? "justify-between" : "justify-center"
+        orgId ? "justify-between" : "justify-between md:justify-center"
       } items-center p-3 px-7`}
     >
       <div className=" md:hidden">

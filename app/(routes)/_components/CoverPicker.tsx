@@ -25,12 +25,14 @@ const CoverPicker = ({
 
   return (
     <Dialog>
-      <DialogTrigger className="h-full w-full">{children}</DialogTrigger>
+      <DialogTrigger className="h-full w-full scroll-auto">
+        {children}
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Update cover</DialogTitle>
-          <DialogDescription>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-3 gap-3">
+          <DialogDescription className="overflow-scroll">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-3 gap-3 overflow-scroll ">
               {images.map((cover, index) => (
                 <div
                   key={index}
@@ -57,14 +59,14 @@ const CoverPicker = ({
           <DialogClose asChild>
             <Button
               onClick={() => coverUrl(selectedCover)}
-              className="bg-purple-600 hover:bg-purple-700 "
+              className="bg-purple-600 hover:bg-purple-700 h-12 "
               type="button"
             >
               Update
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button type="button" variant="secondary">
+            <Button className="h-12" type="button" variant="secondary">
               Close
             </Button>
           </DialogClose>

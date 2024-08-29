@@ -94,7 +94,7 @@ function WorkspaceOptions({ workspaceId, getWorkspaceList }: componentProps) {
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogTrigger asChild>
           <div className=" cursor-pointer">
-            <PenBox className="h-4 w-4" />
+            <PenBox className="h-5 w-5" />
           </div>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
@@ -102,11 +102,11 @@ function WorkspaceOptions({ workspaceId, getWorkspaceList }: componentProps) {
             <DialogTitle>Change Workspace name</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center">
+            <div className="justify-center items-center">
               <Input
                 maxLength={15}
                 onChange={(e) => setWorkspaceNameValue(e.target.value)}
-                className="col-span-3"
+                className="col-span-3 mx-auto"
               />
             </div>
           </div>
@@ -131,7 +131,7 @@ function WorkspaceOptions({ workspaceId, getWorkspaceList }: componentProps) {
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <div className="flex gap-2 text-red-500 focus:text-red-600 cursor-pointer">
-            <Trash2 className="h-4 w-4" />
+            <Trash2 className="h-5 w-5  md:h-4 md:w-4" />
           </div>
         </AlertDialogTrigger>
         <AlertDialogContent>
