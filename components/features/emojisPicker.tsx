@@ -1,8 +1,10 @@
 "use client";
-import EmojiPicker from "emoji-picker-react";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { SmilePlus } from "lucide-react";
+
+const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 
 interface emojiProps {
   value?: (v: string) => void;
@@ -53,7 +55,7 @@ export const EmojisPicker = ({
               ? emojiDatabase
               : emoji || (
                   <SmilePlus
-                    className=" transition-transform animate-pulse"
+                    className="transition-transform animate-pulse"
                     color="#151517"
                     size={40}
                   />
