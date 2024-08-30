@@ -3,7 +3,6 @@ import { DocumentData } from "firebase/firestore";
 import { FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import DocumentOptions from "./DocumentOptions";
-import { useAuth, useUser } from "@clerk/nextjs";
 import { ParamsProps } from "@/@types/params";
 
 interface DocumentListProps {
@@ -13,10 +12,6 @@ interface DocumentListProps {
 
 const DocumentList = ({ documentList, params }: DocumentListProps) => {
   const router = useRouter();
-
-  const { user } = useUser();
-  const userId = user?.id;
-  const { orgId } = useAuth();
 
   return (
     <div className="h-full w-full">

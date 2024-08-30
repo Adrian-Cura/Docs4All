@@ -1,4 +1,4 @@
-import { Link2Icon, MoreVertical, PenBox, Trash2 } from "lucide-react";
+import { Link2Icon, MoreVertical, Trash2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,

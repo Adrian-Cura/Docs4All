@@ -27,11 +27,10 @@ import Link from "next/link";
 
 interface SideProps {
   display?: boolean;
-  fullDisplay?: boolean;
   params: ParamsProps;
 }
 
-const SideNav = ({ params, display, fullDisplay }: SideProps) => {
+const SideNav = ({ params, display }: SideProps) => {
   const [documentList, setDocumentList] = useState<DocumentData[]>([]);
   const { user } = useUser();
   const userId = user?.id;
