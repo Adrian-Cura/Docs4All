@@ -1,7 +1,7 @@
 "use client";
 
 import { Bell, LoaderPinwheel, PenLine } from "lucide-react";
-import Image from "next/image";
+
 import { Button } from "../ui/button";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -111,7 +111,11 @@ const SideNav = ({ params, display, fullDisplay }: SideProps) => {
         
        `}
     >
-      <div className="flex justify-between items-center">
+      <div
+        className={`flex ${
+          display ? " justify-center gap-10" : "justify-between"
+        }  items-center`}
+      >
         <Link
           className="flex items-center justify-center ml-3"
           href="/dashboard"
@@ -127,7 +131,7 @@ const SideNav = ({ params, display, fullDisplay }: SideProps) => {
               </div>
             }
           >
-            <div>
+            <div className={`${display && "mt-1"}`}>
               <NotificationBox>
                 <Bell className="h-6 w-6 text-gray-500" />
               </NotificationBox>

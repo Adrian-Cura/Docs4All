@@ -37,7 +37,7 @@ const CoverPicker = ({
                   onClick={() => setSelectedCover(cover?.imageUrl)}
                   className={` ${
                     selectedCover === cover.imageUrl &&
-                    " border-2 border-double rounded-md border-purple-600 scale-110 brightness-110 saturate-150 shadow-lg rotate-6  transition duration-200 ease-in-out"
+                    " border-2 border-double rounded-md border-purple-600 scale-110 brightness-110 saturate-150 shadow-lg rotate-6  transition duration-200 ease-in-out h-[100px] max-w-[200px] sm:h-auto sm:w-auto"
                   }`}
                 >
                   <Image
@@ -45,7 +45,7 @@ const CoverPicker = ({
                     src={cover?.imageUrl}
                     width={200}
                     height={200}
-                    className=" rounded-md h-[90px] md:h-auto  "
+                    className=" rounded-md h-[100px] sm:h-auto  "
                     priority={true}
                   />
                 </div>

@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { Button } from "../ui/button";
-import { AlignLeft, LayoutGrid } from "lucide-react";
 import workspaceImage from "@/public/workspace.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +16,7 @@ function WorkSpaceList() {
   const { user } = useUser();
   const { orgId } = useAuth();
   const [list, setList] = useState<DocumentData[]>([]);
+  const dateNow = new Date();
 
   const getWorkspaceList = useCallback(async () => {
     let q;
@@ -45,7 +45,11 @@ function WorkSpaceList() {
   return (
     <div className="m-10 p10 md:px-20 lg:px-32 xl:px-48">
       <div className="flex justify-between">
-        <h2 className="font-bold">Hello, {user?.firstName}</h2>
+        <h2 className="font-bold text-lg">{`${
+          user?.firstName
+            ? "Welcome " + user.firstName
+            : "Welcome to your dashboard"
+        }`}</h2>
         <Link href={"/createworkspace"}>
           <Button className=" bg-purple-600 hover:bg-purple-800">+</Button>
         </Link>
@@ -54,10 +58,7 @@ function WorkSpaceList() {
         <div>
           <h2 className="font-medium text-purple-400">Workspaces</h2>
         </div>
-        <div className="flex gap-2">
-          <LayoutGrid />
-          <AlignLeft />
-        </div>
+        <div className="flex gap-2">{dateNow.toDateString()}</div>
       </div>
       {list?.length === 0 ? (
         <div className="flex flex-col justify-center items-center my-10">

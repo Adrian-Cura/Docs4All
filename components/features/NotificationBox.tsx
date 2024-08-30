@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect } from "react";
 import {
   Popover,
@@ -17,7 +18,6 @@ function NotificationBox({ children }: { children: React.ReactNode }) {
   const { count } = useUnreadInboxNotificationsCount();
   useEffect(() => {
     updateRoomNotificationSettings({ threads: "all" });
-    console.log(count);
   }, [count, updateRoomNotificationSettings]);
 
   return (
@@ -36,7 +36,9 @@ function NotificationBox({ children }: { children: React.ReactNode }) {
           )}
         </div>
       </PopoverTrigger>
-      <PopoverContent className={count ? "w-[500px]" : "w-[80px]"}>
+      <PopoverContent
+        className={"w-[300px] sm:w-[400px] md-[500px]  bg-slate-100 rounded-lg"}
+      >
         <InboxNotificationList>
           {inboxNotifications.map((inboxNotification, index) => (
             <InboxNotification
